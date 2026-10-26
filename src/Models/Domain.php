@@ -7,7 +7,7 @@ namespace Liberu\ControlPanel\WebHosting\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Liberu\ControlPanel\WebHosting\Models\GitDeployment;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Liberu\ControlPanel\WebHosting\Enums\DomainStatus;
 
 final class Domain extends Model
@@ -33,8 +33,43 @@ final class Domain extends Model
         return $this->hasMany(GitDeployment::class);
     }
 
-    public function phpConfiguration(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function phpConfiguration(): HasOne
     {
         return $this->hasOne(PhpConfiguration::class);
+    }
+
+    public function resourceUsage(): HasMany
+    {
+        return $this->hasMany(ResourceUsage::class);
+    }
+
+    public function hotlinkProtection(): HasOne
+    {
+        return $this->hasOne(HotlinkProtection::class);
+    }
+
+    public function directoryProtections(): HasMany
+    {
+        return $this->hasMany(DirectoryProtection::class);
+    }
+
+    public function customErrorPages(): HasMany
+    {
+        return $this->hasMany(CustomErrorPage::class);
+    }
+
+    public function mimeTypes(): HasMany
+    {
+        return $this->hasMany(MimeType::class);
+    }
+
+    public function cronJobs(): HasMany
+    {
+        return $this->hasMany(CronJob::class);
+    }
+
+    public function subdomains(): HasMany
+    {
+        return $this->hasMany(Subdomain::class);
     }
 }
